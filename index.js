@@ -2,26 +2,21 @@
 movies.splice(100);
 
 //------------- Veraybls----------------------
-
-let selectCategory = $("#category");
-let searchName = $("#name");
-let filmRating = $("#number");
-let formFilter = $("#filter-form");
-
-let moviesWrapper = $(".movies");
-let searchInput = $("#search-input");
-
-let darcModeBtn = $("#darcmode-btn");
 let header = $("header");
 let aside = $("#aside");
 let inputs = $$("input");
+let moviesWrapper = $(".movies");
+let searchInput = $("#search-input");
+let darcModeBtn = $("#darcmode-btn");
 let footer = $("footer");
 let p = $$("p");
-
+let searchName = $("#name");
 let searchMoviesTaitil = $("#search-movies");
-
 let toastElement = $(".toaster");
 let toastMessege = $(".toaster-titil");
+let selectCategory = $("#category");
+let filmRating = $("#number");
+let formFilter = $("#filter-form");
 
 let categoryData = [];
 
