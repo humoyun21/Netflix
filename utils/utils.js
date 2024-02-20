@@ -1,19 +1,19 @@
-// SELECT A VARIABLE UTILS STARTED
-function $(selector) {
-  return document.querySelector(selector);
+function $(select) {
+  return document.querySelector(select);
 }
 
-function $$(selector) {
-  return document.querySelectorAll(selector);
+function $$(select) {
+  return document.querySelectorAll(select);
 }
-// SELECT A VARIABLE UTILS ENDED
+function creatElement(tegName, clasName, htmlContent) {
+  let tag = document.createElement(tegName);
+  if (clasName) {
+    tag.setAttribute("class", clasName);
+  }
 
-// CREATE ELEMENT STARTED
-function createElement(tagname, classlist, content) {
-  const div = document.createElement(tagname);
-  div.classList.add(classlist);
-  div.innerHTML = content;
+  if (htmlContent) {
+    tag.innerHTML = htmlContent;
+  }
 
-  return div;
+  return tag;
 }
-// CREATE ELEMENT ENDED
