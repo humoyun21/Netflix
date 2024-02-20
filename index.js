@@ -6,6 +6,7 @@ let categoryOption = $("#category");
 let cardWrapper = $(".cardWrapper");
 let searchWrapper = $(".search");
 let searchBtn = $(".searchBtn");
+let searching = $("#searching");
 
 // NORMALIZE DATA STARTED
 const allMovies = movies.map((el) => {
@@ -103,6 +104,17 @@ function renderMovies(moviesList) {
 renderMovies(allMovies);
 
 //Seaarching
+
+searching.addEventListener("keyup", (e) => {
+  cardWrapper.innerHTML = "";
+  searchProduct(e.target.value);
+});
+function searchProduct(searchTerm) {
+  const searchReslut = allMovies.filter((el) =>
+    el.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  renderMovies(searchReslut);
+}
 
 //Dark mode
 let switchBtn = $("#switch");
