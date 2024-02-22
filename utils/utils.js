@@ -1,19 +1,18 @@
-function $(select) {
-  return document.querySelector(select);
+function $(selector) {
+  return document.querySelector(selector);
 }
 
-function $$(select) {
-  return document.querySelectorAll(select);
+function $$(selector) {
+  return document.querySelectorAll(selector);
 }
-function creatElement(tegName, clasName, htmlContent) {
-  let tag = document.createElement(tegName);
-  if (clasName) {
-    tag.setAttribute("class", clasName);
-  }
 
-  if (htmlContent) {
-    tag.innerHTML = htmlContent;
+function createElement(tagName, className, content) {
+  let div = document.createElement(tagName);
+  if (className) {
+    div.classList.add(className);
   }
-
-  return tag;
+  if (content) {
+    div.innerHTML = content;
+  }
+  return div;
 }

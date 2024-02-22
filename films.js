@@ -2,7 +2,7 @@
 
 // -------------------------  Variables ---------------------------
 
-let movies__wrapper = $("#movies-wrapper");
+let like__wrapper = $("#like-wrapper");
 let categoryOption = $("#category");
 let movies_file = movies.splice(0, 100);
 let categories = [];
@@ -62,11 +62,11 @@ function renderMovies(data, tagWrapper) {
                     <div class="flex btn-wrappeer items-center gap-x-3">
     
                         <button 
-                            data-like="${el.imdbId}"
-                            class="save grid hover:bg-red-700 hover:text-white duration-500 text-red-700 place-content-center p-4 border w-12 h-12 rounded-full">
-                            <i data-like="${
+                            data-del="${el.imdbId}"
+                            class="del grid hover:bg-red-700 hover:text-white duration-500 text-red-700 place-content-center p-4 border w-12 h-12 rounded-full">
+                            <i data-del="${
                               el.imdbId
-                            }" class="bi bi-suit-heart-fill save"></i>
+                            }" class="bi bi-trash3 del"></i>
                         </button>
     
                         <a href="https://www.youtube.com/results?search_query=${
@@ -87,8 +87,6 @@ function renderMovies(data, tagWrapper) {
     tagWrapper.innerHTML = "<h1>Bunday film mavjud emas</h1>";
   }
 }
-
-renderMovies(movies_file, movies__wrapper);
 
 // ---------------------------- Header search ----------------------------
 header_search.addEventListener("keyup", (e) => {
@@ -126,6 +124,8 @@ multbutton.addEventListener("click", (e) => {
     );
   });
 
+  console.log(multarr);
+
   movies__wrapper.innerHTML = '<div class="loader"></div>';
   setTimeout(() => {
     renderMovies(multarr, movies__wrapper);
@@ -133,25 +133,34 @@ multbutton.addEventListener("click", (e) => {
 });
 
 let basket = [];
-movies__wrapper.addEventListener("click", (e) => {
-  let id = e.target.getAttribute("data-like");
-  if (e.target.classList.contains("save")) {
-    if (!basket.includes(id)) {
-      basket.push(id);
+like__wrapper.addEventListener("click", (e) => {
+  let id = e.target.getAttribute("data-del");
+  if (e.target.classList.contains("del")) {
+    const array = JSON.parse(localStorage.getItem("Likedata"));
+    const arr = array.filter((el) => {
+      return el != id;
+    });
+    localStorage.setItem("Likedata", JSON.stringify(arr));
+    toastOpen.style.cssText =
+      "opacity: 1; transition: all 0.1s linear; right: 0";
+    setTimeout(() => {
       toastOpen.style.cssText =
-        "opacity: 1; transition: all 0.1s linear; right: 0";
-      localStorage.setItem("Likedata", JSON.stringify(basket));
-      setTimeout(() => {
-        toastOpen.style.cssText =
-          "opacity: 0; transition: all 0.1s linear; right: -300px";
-      }, 500);
-    } else {
-      toastError.style.cssText =
-        "opacity: 1; transition: all 0.1s linear; right: 0";
-      setTimeout(() => {
-        toastError.style.cssText =
-          "opacity: 0; transition: all 0.1s linear; right: -300px";
-      }, 500);
-    }
+        "opacity: 0; transition: all 0.1s linear; right: -300px";
+    }, 500);
+    filterMovieData(arr);
   }
 });
+
+// ----------------- like movies data render ---------------------------
+function searchMoviebyID() {
+  const arr = JSON.parse(localStorage.getItem("Likedata"));
+  filterMovieData(arr);
+}
+searchMoviebyID();
+
+function filterMovieData(data) {
+  let arr = movies_file.filter((el) => {
+    return data.includes(el.imdbId);
+  });
+  renderMovies(arr, like__wrapper);
+}
